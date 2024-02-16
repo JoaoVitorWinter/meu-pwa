@@ -1,11 +1,12 @@
-import Button from "../components/Button";
+import Header from "../components/Header"
 
 const InitialPage = () => {
-    return (
-        <>
-        <Button onClick={() => {alert("Teste")}}text={"Apertar"}/>
-        </>
-    )
+
+  return (
+    <>
+    <Header />
+    </>
+  )
 }
 
-export default InitialPage;
+export default InitialPage

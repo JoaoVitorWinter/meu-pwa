@@ -1,7 +1,7 @@
 import { useState } from 'react'
-
-import InitialPage from './pages/InitialPage.jsx'
-import './App.css'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import InitialPage from './pages/InitialPage'
 
 function App() {
   return (
