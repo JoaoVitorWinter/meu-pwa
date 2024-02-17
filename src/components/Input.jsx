@@ -1,9 +1,9 @@
-const Input = ({labelText, placeholder}) => {
+const Input = ({labelText, placeholder, name, onChange, type }) => {
   return (
     <>
       <label className="font-base">
       {labelText}
-      <input placeholder={placeholder} type="text" name="search" className="block mt-2 px-6 py-2 font-base rounded-lg" />
+      <input onChange={onChange} placeholder={placeholder} type={type} name={name} className="block mt-2 px-6 py-2 font-base rounded-lg" />
       </label>
     </>
   );
