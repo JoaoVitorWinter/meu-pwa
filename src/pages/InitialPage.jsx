@@ -2,12 +2,24 @@ import Button from "../components/Button"
 import Header from "../components/Header"
 import Card from "../components/Card"
 import Input from "../components/Input"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const InitialPage = () => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [shoppingList, setShoppingList] = useState(new Array());
+  
+  useEffect(() => {
+    var newList = JSON.parse(localStorage.getItem("list"));
+    setShoppingList(newList);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      localStorage.setItem("list", JSON.stringify(shoppingList));
+    }, 0);
+  }, [shoppingList]);
+
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -18,8 +30,11 @@ const InitialPage = () => {
   }
 
   const createCard = () => {
-    addShopping([name, quantity]);
-    console.log([name, quantity])
+    if (name && quantity) {
+      addShopping([name, quantity]);
+    } else {
+      alert("Por favor, não deixe os campos vazios!")
+    }
   }
 
   const addShopping = (item) => {
@@ -40,7 +55,6 @@ const InitialPage = () => {
       <div>
         {
           shoppingList.map((item, index) => {
-            console.log(item)
             return (
               <Card key={index} name={item[0]} quantity={item[1]}/>
             )
