@@ -46,8 +46,8 @@ const InitialPage = () => {
   return (
     <>
     <Header />
-    <div className="flex flex-col items-center mt-8">
-      <div className="bg-green w-fit p-4 flex items-center gap-4 rounded-lg">
+    <main className="flex flex-col items-center mt-8">
+      <div className="bg-primary w-fit p-4 flex flex-col md:flex-row items-center gap-4 rounded-lg">
         <Input onChange={handleNameChange} labelText={"Nome"} placeholder={"Digite um nome"} type={"text"}/>
         <Input onChange={handleQuantityChange} labelText={"Quantidade"} placeholder={"Digite a quantidade"} type={"number"}/>
         <Button onClick={() => {createCard()}}text={"Cadastrar"} />
@@ -61,7 +61,7 @@ const InitialPage = () => {
           })
         }
       </div>
-    </div>
+    </main>
     </>
   )
 }
