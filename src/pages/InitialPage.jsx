@@ -56,7 +56,7 @@ const InitialPage = () => {
         {
           shoppingList.map((item, index) => {
             return (
-              <Card key={index} name={item[0]} quantity={item[1]}/>
+              <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
             )
           })
         }
