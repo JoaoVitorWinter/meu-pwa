@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import editCard from "../utils/edit";
 import removeCard from "../utils/remove";
 import Button from "./Button";
 
@@ -9,6 +10,8 @@ const Card = ({ name, quantity, index, setShoppingList }) => {
   useEffect(() => {
     if (currentQuantity <= 0) {
       setShoppingList(removeCard(index));
+    } else {
+      setShoppingList(editCard(currentQuantity, index));
     }
   }, [currentQuantity]);
 
