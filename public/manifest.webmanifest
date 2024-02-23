@@ -2,7 +2,8 @@
     "name": "DynaLists",
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#FDFDFD",
+    "theme_color": "#0197F6",
+    "background_color": "#0197F6",
     "icons": [
         {
             "src": "./512x512.png",

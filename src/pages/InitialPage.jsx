@@ -11,8 +11,10 @@ const InitialPage = () => {
   const [search, setSearch] = useState("");
   
   useEffect(() => {
-    var newList = JSON.parse(localStorage.getItem("list"));
-    setShoppingList(newList);
+    if (JSON.parse(localStorage.getItem("list")) != null) {
+      var newList = JSON.parse(localStorage.getItem("list"));
+      setShoppingList(newList);
+    }
   }, []);
 
   useEffect(() => {
@@ -50,6 +52,7 @@ const InitialPage = () => {
     const newList = [...shoppingList];
     newList.push(item);
     setShoppingList(newList);
+    
   }
 
   return (
