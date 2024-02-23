@@ -9,15 +9,13 @@ const InitialPage = () => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [shoppingList, setShoppingList] = useState(new Array());
-  const parent = useRef(null)
-
+  const [search, setSearch] = useState("");
+  
   useEffect(() => {
-    parent.current && autoAnimate(parent.current)
-  }, [parent])
-
-  useEffect(() => {
-    var newList = JSON.parse(localStorage.getItem("list"));
-    setShoppingList(newList);
+    if (JSON.parse(localStorage.getItem("list")) != null) {
+      var newList = JSON.parse(localStorage.getItem("list"));
+      setShoppingList(newList);
+    }
   }, []);
 
   useEffect(() => {
@@ -31,14 +29,22 @@ const InitialPage = () => {
   };
 
   const handleQuantityChange = (e) => {
-    setQuantity(parseInt(e.target.value));
-  };
+    if (e.target.value > -1) {
+      setQuantity(parseInt(e.target.value));
+    }
+  }
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  }
 
   const createCard = () => {
-    if (name && quantity) {
+    if (name && quantity > 0) {
       addShopping([name, quantity]);
+      setName("");
+      setQuantity("");
     } else {
-      alert("Por favor, não deixe os campos vazios!");
+      alert("Por favor, coloque um nome e uma quantidade maior que zero!")
     }
   };
 
@@ -46,46 +52,30 @@ const InitialPage = () => {
     const newList = [...shoppingList];
     newList.push(item);
     setShoppingList(newList);
-  };
+    
+  }
 
   return (
     <>
-      <Header />
-      <main className="flex flex-col items-center mt-8">
-        <div className="bg-primary w-fit p-4 flex flex-col md:flex-row items-center gap-4 rounded-lg">
-          <Input
-            onChange={handleNameChange}
-            labelText={"Nome"}
-            placeholder={"Digite um nome"}
-            type={"text"}
-          />
-          <Input
-            onChange={handleQuantityChange}
-            labelText={"Quantidade"}
-            placeholder={"Digite a quantidade"}
-            type={"number"}
-          />
-          <Button
-            onClick={() => {
-              createCard();
-            }}
-            text={"Cadastrar"}
-          />
-        </div>
-        <div ref={parent}>
-          {shoppingList.map((item, index) => {
-            return (
-              <Card
-                key={index}
-                index={index}
-                setShoppingList={setShoppingList}
-                name={item[0]}
-                quantity={item[1]}
-              />
-            );
-          })}
-        </div>
-      </main>
+    <Header handleSearchChange={handleSearchChange}/>
+    <main className="flex flex-col items-center mt-8">
+      <div className="bg-primary w-fit p-4 flex flex-col md:flex-row items-center gap-4 rounded-lg">
+        <Input onChange={handleNameChange} value={name} labelText={"Nome"} placeholder={"Digite um nome"} type={"text"}/>
+        <Input onChange={handleQuantityChange} value={quantity || ""} labelText={"Quantidade"} placeholder={"Digite a quantidade"} type={"number"}/>
+        <Button onClick={() => {createCard()}} text={"Cadastrar"} />
+      </div>
+      <div>
+        {
+          shoppingList.map((item, index) => {
+            if (item[0].includes(search)) {
+              return (
+                <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
+                )
+              }
+          })
+        }
+      </div>
+    </main>
     </>
   );
 };

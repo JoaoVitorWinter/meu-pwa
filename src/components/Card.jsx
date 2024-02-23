@@ -16,14 +16,14 @@ const Card = ({ name, quantity, index, setShoppingList }) => {
   }, [currentQuantity]);
 
   const handleChange = (change) => {
-    setCurrentQuantity(currentQuantity + change);
+    if (currentQuantity + change > 0) {
+      setCurrentQuantity(currentQuantity + change);
+    } 
   };
 
   return (
-    <div
-      className="flex m-auto mt-6 rounded-xl bg-primary px-4 md:px-12 py-4 items-center justify-evenly gap-4 md:gap-20"
-    >
-      <p className="">{name}</p>
+    <div className="flex m-auto mt-6 rounded-xl bg-primary px-4 md:px-12 py-4 items-center justify-evenly gap-4 md:gap-20">
+      <p className="w-20 break-words">{name}</p>
       <div className="flex justify-around gap-2 items-center">
         <button
           onClick={() => {
