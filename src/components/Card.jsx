@@ -1,9 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import editCard from "../utils/edit";
 import removeCard from "../utils/remove";
 import Button from "./Button";
-import { animated, useSpring } from "@react-spring/web";
 
 const Card = ({ name, quantity, index, setShoppingList }) => {
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
@@ -20,22 +19,10 @@ const Card = ({ name, quantity, index, setShoppingList }) => {
     setCurrentQuantity(currentQuantity + change);
   };
 
-  const styles = useSpring({
-    from:{
-      x: -200,
-      opacity: 0,
-    },
-    to:{
-      x: 0,
-      opacity: 1,
-    },
-    config: {
-      mass: 2,
-    },
-  })
-
   return (
-    <animated.div style={styles} className="flex m-auto mt-6 rounded-xl bg-primary px-4 md:px-12 py-4 items-center justify-evenly gap-4 md:gap-20">
+    <div
+      className="flex m-auto mt-6 rounded-xl bg-primary px-4 md:px-12 py-4 items-center justify-evenly gap-4 md:gap-20"
+    >
       <p className="">{name}</p>
       <div className="flex justify-around gap-2 items-center">
         <button
@@ -56,8 +43,13 @@ const Card = ({ name, quantity, index, setShoppingList }) => {
           +
         </button>
       </div>
-      <Button text={"Excluir"} onClick={() => {setShoppingList(removeCard(index))}}></Button>
-    </animated.div>
+      <Button
+        text={"Excluir"}
+        onClick={() => {
+          setShoppingList(removeCard(index));
+        }}
+      ></Button>
+    </div>
   );
 };
 
