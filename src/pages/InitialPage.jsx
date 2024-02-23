@@ -26,14 +26,18 @@ const InitialPage = () => {
   }
 
   const handleQuantityChange = (e) => {
-    setQuantity(parseInt(e.target.value));
+    if (e.target.value > -1) {
+      setQuantity(parseInt(e.target.value));
+    }
   }
 
   const createCard = () => {
-    if (name && quantity) {
+    if (name && quantity > 0) {
       addShopping([name, quantity]);
+      setName("");
+      setQuantity("");
     } else {
-      alert("Por favor, não deixe os campos vazios!")
+      alert("Por favor, coloque um nome e uma quantidade maior que zero!")
     }
   }
 
@@ -48,9 +52,9 @@ const InitialPage = () => {
     <Header />
     <main className="flex flex-col items-center mt-8">
       <div className="bg-primary w-fit p-4 flex flex-col md:flex-row items-center gap-4 rounded-lg">
-        <Input onChange={handleNameChange} labelText={"Nome"} placeholder={"Digite um nome"} type={"text"}/>
-        <Input onChange={handleQuantityChange} labelText={"Quantidade"} placeholder={"Digite a quantidade"} type={"number"}/>
-        <Button onClick={() => {createCard()}}text={"Cadastrar"} />
+        <Input onChange={handleNameChange} value={name} labelText={"Nome"} placeholder={"Digite um nome"} type={"text"}/>
+        <Input onChange={handleQuantityChange} value={quantity || ""} labelText={"Quantidade"} placeholder={"Digite a quantidade"} type={"number"}/>
+        <Button onClick={() => {createCard()}} text={"Cadastrar"} />
       </div>
       <div>
         {
