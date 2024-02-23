@@ -8,6 +8,7 @@ const InitialPage = () => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [shoppingList, setShoppingList] = useState(new Array());
+  const [search, setSearch] = useState("");
   
   useEffect(() => {
     var newList = JSON.parse(localStorage.getItem("list"));
@@ -31,6 +32,10 @@ const InitialPage = () => {
     }
   }
 
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  }
+
   const createCard = () => {
     if (name && quantity > 0) {
       addShopping([name, quantity]);
@@ -49,7 +54,7 @@ const InitialPage = () => {
 
   return (
     <>
-    <Header />
+    <Header handleSearchChange={handleSearchChange}/>
     <main className="flex flex-col items-center mt-8">
       <div className="bg-primary w-fit p-4 flex flex-col md:flex-row items-center gap-4 rounded-lg">
         <Input onChange={handleNameChange} value={name} labelText={"Nome"} placeholder={"Digite um nome"} type={"text"}/>
@@ -59,9 +64,11 @@ const InitialPage = () => {
       <div>
         {
           shoppingList.map((item, index) => {
-            return (
-              <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
-            )
+            if (item[0].includes(search)) {
+              return (
+                <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
+                )
+              }
           })
         }
       </div>
