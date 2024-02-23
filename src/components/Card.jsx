@@ -16,7 +16,9 @@ const Card = ({ name, quantity, index, setShoppingList }) => {
   }, [currentQuantity]);
 
   const handleChange = (change) => {
-    setCurrentQuantity(currentQuantity + change);
+    if (currentQuantity + change > 0) {
+      setCurrentQuantity(currentQuantity + change);
+    } 
   };
 
   return (
