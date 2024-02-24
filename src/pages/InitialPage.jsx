@@ -55,13 +55,19 @@ const InitialPage = () => {
     
   }
 
+  const onKeyPress = (e) => {
+    if (["e", "E", "-"].includes(e.key)) {
+      e.preventDefault()
+    }
+  }
+
   return (
     <>
     <Header handleSearchChange={handleSearchChange}/>
     <main className="flex flex-col items-center mt-8">
       <div className="bg-primary w-fit p-4 flex flex-col md:flex-row items-center gap-4 rounded-lg">
         <Input onChange={handleNameChange} value={name} labelText={"Nome"} placeholder={"Digite um nome"} type={"text"}/>
-        <Input onChange={handleQuantityChange} value={quantity || ""} labelText={"Quantidade"} placeholder={"Digite a quantidade"} type={"number"}/>
+        <Input onChange={handleQuantityChange} onKeyPress={onKeyPress} value={quantity || ""} labelText={"Quantidade"} placeholder={"Digite a quantidade"} type={"number"}/>
         <Button onClick={() => {createCard()}} text={"Cadastrar"} />
       </div>
       <div>
