@@ -56,7 +56,7 @@ const InitialPage = () => {
   }
 
   const onKeyPress = (e) => {
-    if (["e", "E", "-"].includes(e.key)) {
+    if (!["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].includes(e.key)) {
       e.preventDefault()
     }
   }
