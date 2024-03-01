@@ -8,7 +8,9 @@ const Card = ({ name, quantity, index, setShoppingList }) => {
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
   useEffect(() => {
-    setCurrentQuantity(quantity);
+    setTimeout(() => {
+      setCurrentQuantity(quantity);
+    }, 0);
   });
 
   useEffect(() => {
