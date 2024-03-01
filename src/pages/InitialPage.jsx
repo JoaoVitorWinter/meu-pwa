@@ -62,18 +62,17 @@ const InitialPage = () => {
     }
   }
 
-  const showList = useMemo((() => {
-    console.log(shoppingList)
-    return (
-      shoppingList.map((item, index) => {
-        if (item[0].includes(search)) {
-          return (
-            <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
-          )
-        }
-      })
-    )
-  }), [shoppingList])
+  // const showList = useMemo((() => {
+  //   return (
+  //     shoppingList.map((item, index) => {
+  //       if (item[0].includes(search)) {
+  //         return (
+  //           <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
+  //         )
+  //       }
+  //     })
+  //   )
+  // }), [shoppingList])
 
   return (
     <>
@@ -86,7 +85,13 @@ const InitialPage = () => {
       </div>
       <div>
         {
-          showList
+          shoppingList.map((item, index) => {
+            if (item[0].includes(search)) {
+              return (
+                <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
+              )
+            }
+          })
         }
       </div>
     </main>
