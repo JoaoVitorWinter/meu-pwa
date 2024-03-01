@@ -3,6 +3,7 @@ import Header from "../components/Header"
 import Card from "../components/Card"
 import Input from "../components/Input"
 import { useEffect, useState } from "react"
+import { useMemo } from "react"
 
 const InitialPage = () => {
   const [name, setName] = useState("");
@@ -61,6 +62,19 @@ const InitialPage = () => {
     }
   }
 
+  const showList = useMemo((() => {
+    console.log(shoppingList)
+    return (
+      shoppingList.map((item, index) => {
+        if (item[0].includes(search)) {
+          return (
+            <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
+          )
+        }
+      })
+    )
+  }), [shoppingList])
+
   return (
     <>
     <Header handleSearchChange={handleSearchChange}/>
@@ -72,13 +86,7 @@ const InitialPage = () => {
       </div>
       <div>
         {
-          shoppingList.map((item, index) => {
-            if (item[0].includes(search)) {
-              return (
-                <Card key={index} index={index} setShoppingList={setShoppingList} name={item[0]} quantity={item[1]}/>
-                )
-              }
-          })
+          showList
         }
       </div>
     </main>

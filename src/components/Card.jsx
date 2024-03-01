@@ -8,6 +8,10 @@ const Card = ({ name, quantity, index, setShoppingList }) => {
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
   useEffect(() => {
+    setCurrentQuantity(quantity);
+  });
+
+  useEffect(() => {
     if (currentQuantity <= 0) {
       setShoppingList(removeCard(index));
     } else if (currentQuantity != quantity) {
